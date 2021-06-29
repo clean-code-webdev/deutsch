@@ -1,0 +1,9 @@
+[
+  { "word": "wasser", "gender": "n" },
+  { "word": "mann", "gender": "m" },
+  { "word": "frau", "gender": "f" },
+  { "word": "leute", "gender": "p" },
+  { "word": "hund", "gender": "m" },
+  { "word": "haus", "gender": "n" },
+  { "word": "straße", "gender": "f" }
+]
