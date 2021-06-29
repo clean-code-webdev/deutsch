@@ -31,115 +31,118 @@
 
     <script>
       class Init {
-        constructor(words) {
-          this.words = words;
+  constructor(words) {
+    this.words = words;
+  }
+
+  getWord = () => {
+    let index = Math.floor(Math.random() * this.words.length);
+    return this.words[index];
+  };
+
+  enableButtons = () => {
+    let buttons = document.querySelectorAll(".btn");
+
+    buttons.forEach((btn) => {
+      btn.style.background = "white";
+
+      btn.disabled = false;
+    });
+  };
+
+  displayWord = (word) => {
+    let display = document.querySelector("#word");
+    let translation = document.querySelector("#translation");
+    display.innerHTML = word.german;
+    translation.innerHTML = word.english;
+  };
+
+  setAnswer = (word) => {
+    let buttons = document.querySelectorAll(".btn");
+
+    buttons.forEach((btn) => {
+      let buttonGender = btn.getAttribute("gender");
+      let workGender = word.gender;
+      let correctAnswer = buttonGender === workGender;
+
+      btn.className = "btn";
+
+      if (correctAnswer) btn.className += " right";
+      else btn.className += " wrong";
+    });
+  };
+
+  checkAnswer = (btn) => {
+    const classes = btn.className.split(" ").includes("right");
+
+    if (classes) {
+      // console.log("right");
+      return true;
+    } else {
+      // console.log("wrong");
+      btn.disabled = true;
+      return false;
+    }
+  };
+
+  tryAnswer = () => {
+    let word = this.getWord();
+    this.enableButtons();
+    this.displayWord(word);
+    this.setAnswer(word);
+  };
+
+  updateScore = (res) => {
+    let rightScore = document.querySelector("#right");
+    let wrongScore = document.querySelector("#wrong");
+
+    if (res === true) {
+      rightScore.innerText = parseInt(rightScore.innerText) + 1;
+      return;
+    }
+
+    wrongScore.innerText = parseInt(wrongScore.innerText) + 1;
+  };
+
+  reset = () => {
+    setTimeout(() => {
+      this.tryAnswer();
+    }, 500);
+  };
+
+  init = () => {
+    this.tryAnswer();
+
+    let buttons = document.querySelectorAll(".btn");
+
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", (e) => {
+        let btn = e.target;
+        let res = this.checkAnswer(btn);
+
+        if (res) {
+          buttons[i].style.background = "#08e013";
+          this.reset();
+          this.updateScore(true);
+        } else {
+          btn.style.background = "#e00808";
+
+          this.updateScore(false);
         }
+      });
+    }
+  };
+}
 
-        getWord = () => {
-          let index = Math.floor(Math.random() * this.words.length);
-          return this.words[index];
-        };
+fetch("./data.json")
+  .then((response) => response.json())
+  .then((data) => {
+    let words = data;
 
-        enableButtons = () => {
-          let buttons = document.querySelectorAll(".btn");
+    const init = new Init(words);
+    init.init();
+  });
 
-          buttons.forEach((btn) => {
-            btn.style.background = "white";
-
-            btn.disabled = false;
-          });
-        };
-
-        displayWord = (word) => {
-          let display = document.querySelector("#word");
-          display.innerHTML = word.word;
-        };
-
-        setAnswer = (word) => {
-          let buttons = document.querySelectorAll(".btn");
-
-          buttons.forEach((btn) => {
-            let buttonGender = btn.getAttribute("gender");
-            let workGender = word.gender;
-            let correctAnswer = buttonGender === workGender;
-
-            btn.className = "btn";
-
-            if (correctAnswer) btn.className += " right";
-            else btn.className += " wrong";
-          });
-        };
-
-        checkAnswer = (btn) => {
-          const classes = btn.className.split(" ").includes("right");
-
-          if (classes) {
-            // console.log("right");
-            return true;
-          } else {
-            // console.log("wrong");
-            btn.disabled = true;
-            return false;
-          }
-        };
-
-        tryAnswer = () => {
-          let word = this.getWord();
-          this.enableButtons();
-          this.displayWord(word);
-          this.setAnswer(word);
-        };
-
-        updateScore = (res) => {
-          let rightScore = document.querySelector("#right");
-          let wrongScore = document.querySelector("#wrong");
-
-          if (res === true) {
-            rightScore.innerText = parseInt(rightScore.innerText) + 1;
-            return;
-          }
-
-          wrongScore.innerText = parseInt(wrongScore.innerText) + 1;
-        };
-
-        reset = () => {
-          setTimeout(() => {
-            this.tryAnswer();
-          }, 500);
-        };
-
-        init = () => {
-          this.tryAnswer();
-
-          let buttons = document.querySelectorAll(".btn");
-
-          for (let i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener("click", (e) => {
-              let btn = e.target;
-              let res = this.checkAnswer(btn);
-
-              if (res) {
-                buttons[i].style.background = "#08e013";
-                this.reset();
-                this.updateScore(true);
-              } else {
-                btn.style.background = "#e00808";
-
-                this.updateScore(false);
-              }
-            });
-          }
-        };
-      }
-
-      fetch("./data.json")
-        .then((response) => response.json())
-        .then((data) => {
-          let words = data;
-
-          const init = new Init(words);
-          init.init();
-        });
     </script>
   </body>
 </html>
