@@ -34,6 +34,8 @@
       class Init {
         constructor(words) {
           this.words = words;
+          this.isTranslationDisplayed = false;
+          this.currentWord = "";
         }
 
         getWord = () => {
@@ -53,10 +55,13 @@
 
         displayWord = (word) => {
           let display = document.querySelector("#word");
-          let translation = document.querySelector("#translation");
           display.innerHTML = word.german;
           // translation.innerHTML = word.english;
-          translation.innerHTML = "";
+          // translation.innerHTML = "";
+
+          let translation = document.querySelector("#translation");
+          if (this.isTranslationDisplayed) translation.innerText = word.english;
+          else translation.innerText = "";
         };
 
         setAnswer = (word) => {
@@ -78,20 +83,11 @@
           const classes = btn.className.split(" ").includes("right");
 
           if (classes) {
-            // console.log("right");
             return true;
           } else {
-            // console.log("wrong");
             btn.disabled = true;
             return false;
           }
-        };
-
-        tryAnswer = () => {
-          let word = this.getWord();
-          this.enableButtons();
-          this.displayWord(word);
-          this.setAnswer(word);
         };
 
         updateScore = (res) => {
@@ -112,8 +108,44 @@
           }, 500);
         };
 
+        updateTranslation = () => {
+          let translationBtn = document.querySelector("#translation-btn");
+          let translation = document.querySelector("#translation");
+
+          translationBtn.addEventListener("click", () => {
+            if (this.isTranslationDisplayed) {
+              translation.innerText = this.currentWord.english;
+            } else translation.innerText = "";
+          });
+        };
+
+        toggleTranslationDisplayOption = () => {
+          let translationBtn = document.querySelector("#translation-btn");
+
+          translationBtn.addEventListener("click", () => {
+            let option = translationBtn.innerText;
+
+            if (option.toLowerCase() === "show english") {
+              translationBtn.innerText = "hide English";
+              this.isTranslationDisplayed = true;
+            } else {
+              translationBtn.innerText = "show English";
+              this.isTranslationDisplayed = false;
+            }
+          });
+        };
+
+        tryAnswer = () => {
+          this.currentWord = this.getWord();
+          this.enableButtons();
+          this.displayWord(this.currentWord);
+          this.setAnswer(this.currentWord);
+        };
+
         init = () => {
           this.tryAnswer();
+          this.toggleTranslationDisplayOption();
+          this.updateTranslation();
 
           let buttons = document.querySelectorAll(".btn");
 
@@ -144,6 +176,7 @@
           const init = new Init(words);
           init.init();
         });
+
     </script>
   </body>
 </html>
