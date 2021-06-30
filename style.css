@@ -48,7 +48,8 @@ body #wrapper #score p {
 }
 
 body #wrapper #word {
-  font-size: 5rem;
+  font-size: 4rem;
+  height: 8rem;
   text-align: center;
   text-transform: capitalize;
   margin-bottom: 2rem;
@@ -57,6 +58,8 @@ body #wrapper #word {
 
 body #wrapper #translation {
   font-size: 2rem;
+  padding: 2rem;
+  height: 7rem;
   text-align: center;
   margin-bottom: 5rem;
 }
@@ -67,6 +70,7 @@ body #wrapper #buttons {
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   gap: 2rem;
+  margin-bottom: 5rem;
 }
 
 body #wrapper #buttons button {
@@ -79,4 +83,16 @@ body #wrapper #buttons button {
 
 body #wrapper #buttons button:hover {
   cursor: pointer;
+}
+
+body #wrapper #translation-option {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  border: 0.1rem solid black;
+  width: 20rem;
+  margin: auto;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0.2rem 0.2rem 0.5rem black;
+          box-shadow: 0.2rem 0.2rem 0.5rem black;
 }
