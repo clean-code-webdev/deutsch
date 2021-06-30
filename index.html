@@ -13,8 +13,8 @@
   <body>
     <div id="wrapper">
       <div id="score">
-        <p>Richtig: <span id="right" class="score">0</span></p>
-        <p>Falsch: <span id="wrong" class="score">0</span></p>
+        <p>Right: <span id="right" class="score">0</span></p>
+        <p>Wrong: <span id="wrong" class="score">0</span></p>
       </div>
 
       <div id="word"></div>
@@ -25,6 +25,10 @@
         <button gender="f" class="btn">die</button>
         <button gender="n" class="btn">das</button>
         <button gender="p" class="btn">die (Pl.)</button>
+      </div>
+
+      <div id="translation-option">
+        <h2 id="translation-btn">show English</h2>
       </div>
     </div>
 
@@ -176,7 +180,6 @@
           const init = new Init(words);
           init.init();
         });
-
     </script>
   </body>
 </html>
