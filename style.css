@@ -33,6 +33,27 @@ body #wrapper {
   max-width: 50rem;
 }
 
+body #wrapper #topics {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 0.1rem solid black;
+}
+
+body #wrapper #topics .topic {
+  background: #fff;
+  font-size: 1.5rem;
+  border: 0.1rem solid black;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
 body #wrapper #score {
   display: -ms-grid;
   display: grid;
@@ -95,4 +116,5 @@ body #wrapper #translation-option {
   border-radius: 0.5rem;
   -webkit-box-shadow: 0.2rem 0.2rem 0.5rem black;
           box-shadow: 0.2rem 0.2rem 0.5rem black;
+  cursor: pointer;
 }
