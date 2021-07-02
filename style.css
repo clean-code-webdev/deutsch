@@ -118,3 +118,16 @@ body #wrapper #translation-option {
           box-shadow: 0.2rem 0.2rem 0.5rem black;
   cursor: pointer;
 }
+
+body #wrapper #vocabulary p {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  font-size: 1.3rem;
+  padding: 1rem 0.5rem;
+}
+
+body #wrapper #vocabulary p:nth-last-of-type(even) {
+  background: #fff;
+}
